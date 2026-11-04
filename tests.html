@@ -1,0 +1,114 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Test Reports</title><style>
+:root{--bg:#f6f7f9;--surface:#fff;--ink:#1b1f24;--muted:#59626c;--line:#dde1e6;--accent:#2f6fb5;--good:#167d4b;--bad:#b8392b;--warn:#9a6400;--none:#6b7280;--chipbg:#eef1f4}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1114;--surface:#171a1e;--ink:#e7e9ec;--muted:#a0a8b1;--line:#2c3137;--accent:#7fb2e5;--good:#3fb87a;--bad:#e76b5c;--warn:#e0a63b;--none:#9aa1ab;--chipbg:#22262b}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 "Segoe UI",system-ui,-apple-system,Arial,sans-serif}
+nav{background:var(--surface);border-bottom:1px solid var(--line);position:sticky;top:0}
+nav div{max-width:1040px;margin:0 auto;padding:0 16px;display:flex;gap:20px;overflow-x:auto}
+nav a{color:var(--muted);text-decoration:none;padding:14px 0;white-space:nowrap;border-bottom:2px solid transparent}
+nav a[aria-current=page]{color:var(--ink);border-color:var(--accent);font-weight:600}
+main{max-width:1040px;margin:0 auto;padding:24px 16px 48px}
+h1{font-size:28px;margin:0 0 6px}
+h2{font-size:20px;margin:32px 0 10px}
+.lead{color:var(--muted);font-size:17px;max-width:760px}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:20px 0}
+.tile{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px}
+.tile b{display:block;font-size:24px}
+.tile span{color:var(--muted);font-size:14px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px;margin:12px 0}
+.card h3{margin:0 0 6px;font-size:17px}
+.small{color:var(--muted);font-size:14px}
+.chip{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:2px 10px;font-size:13px;font-weight:600;background:var(--chipbg);white-space:nowrap}
+.chip i{font-style:normal}
+.good{color:var(--good)}.bad{color:var(--bad)}.run{color:var(--warn)}.none{color:var(--none)}
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;background:var(--surface);border:1px solid var(--line);border-radius:10px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:14px;color:var(--muted);font-weight:600}
+tr:last-child td{border-bottom:0}
+ul.tasks{list-style:none;padding:0;margin:0}
+ul.tasks li{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--line)}
+ul.tasks li:last-child{border-bottom:0}
+footer{max-width:1040px;margin:0 auto;padding:0 16px 32px;color:var(--muted);font-size:13px}
+</style></head><body><nav><div><a href="index.html">Overview</a><a href="tests.html" aria-current=page>Test reports</a><a href="data.html">Data</a></div></nav><main>
+<h1>Test reports</h1>
+<p class="lead">Every test so far, newest first. Edges are in percentage points over the comparison, and trade results in R, where 1R is the amount risked.</p>
+
+<div class="card" id="structure-v3">
+<h3>Trend continuation, structure v3 <span class="chip bad"><i aria-hidden="true">&#10005;</i>Failed</span></h3>
+<p class="small">2026-11-04 &middot; 15 pairs, 2010 to Oct 2023</p>
+<p><b>Question:</b> Once a v3 structure is confirmed, does price make a new high before breaking low 5, more often than a random walk would?</p>
+<p><b>Result:</b> 130 structures: 56.9% continued against a 58.8% random-walk rate, edge -1.9 points (95% range -9.0 to +5.2).</p>
+<p><b>Conclusion:</b> No continuation edge over a random walk, and too few structures.</p>
+</div>
+<div class="card" id="structure-v2">
+<h3>Trend structure without retests <span class="chip none"><i aria-hidden="true">&#9675;</i>Too few</span></h3>
+<p class="small">2026-11-04 &middot; 15 pairs, 2010 to Oct 2023</p>
+<p><b>Question:</b> Pullbacks no deeper than half, legs 1 to 2 times the last, 100 closes past the 200 SMA.</p>
+<p><b>Result:</b> Only 9 structures in 14 years. The user marked all 9 Correct.</p>
+<p><b>Conclusion:</b> Matches the eye, but too rare. Loosened to v3 from counts only.</p>
+</div>
+<div class="card" id="structure-v1">
+<h3>Trend structure with retests (the user&#x27;s drawing) <span class="chip none"><i aria-hidden="true">&#9675;</i>Too few</span></h3>
+<p class="small">2026-11-04 &middot; 15 pairs, 2010 to Oct 2023</p>
+<p><b>Question:</b> Higher highs and lows whose pullbacks retest the broken high, entered on the next retest.</p>
+<p><b>Result:</b> Only 10 setups and 6 trades in 14 years. The user marked 9 of 10 setups Correct, but disliked the entries.</p>
+<p><b>Conclusion:</b> Matches the eye, but too rare to test or to trade.</p>
+</div>
+<div class="card" id="rayner">
+<h3>Rayner Teo&#x27;s 50 EMA pullback template, 1-hour <span class="chip bad"><i aria-hidden="true">&#10005;</i>Failed</span></h3>
+<p class="small">2026-11-03 &middot; 7 majors, 2010 to Oct 2023</p>
+<p><b>Question:</b> Whole trades: 200 and 50 EMA trend, pullback to the 50 EMA, trigger candle, 2 ATR stop, nearest swing target.</p>
+<p><b>Result:</b> 14,340 trades: -0.093R a trade after spread and commission (-0.107 to -0.079). Random entries in the same trend: -0.094R.</p>
+<p><b>Conclusion:</b> Clear loss in every pair and period. The near target gave small wins against full losses. The user judged most setups as ranges.</p>
+</div>
+<div class="card" id="trend-zones">
+<h3>Trend pullback zones <span class="chip bad"><i aria-hidden="true">&#10005;</i>Failed</span></h3>
+<p class="small">2026-11-03 &middot; 7 majors, 2010 to Oct 2023</p>
+<p><b>Question:</b> In a trend of 2 full swings with pullbacks to the 50 EMA, does the broken swing turn price back with the trend?</p>
+<p><b>Result:</b> 1,309 touches: edge -2.2 points (-4.7 to +0.3). Without the EMA rule: -3.5 (-5.8 to -1.3), worse than random.</p>
+<p><b>Conclusion:</b> Old resistance didn&#x27;t act as support. The user judged most of these trends as ranges.</p>
+</div>
+<div class="card" id="range-v3">
+<h3>Ranges with the confirmation rule (deciding test) <span class="chip bad"><i aria-hidden="true">&#10005;</i>Failed</span></h3>
+<p class="small">2026-11-04 &middot; 8 crosses (fresh data), 2010 to Oct 2023</p>
+<p><b>Question:</b> With swing 4&#x27;s zone only tradable after a full move to the other side, is there an edge on data that shaped no rule?</p>
+<p><b>Result:</b> 476 touches: edge +1.0 points (-4.0 to +5.9). Win rate 52.3% against about 54.2% needed to cover spread. Majors: +0.1.</p>
+<p><b>Conclusion:</b> 1-hour ranges closed. A tiny edge can&#x27;t be ruled out but couldn&#x27;t pay.</p>
+</div>
+<div class="card" id="range-v2">
+<h3>Ranges from the user&#x27;s marks <span class="chip bad"><i aria-hidden="true">&#10005;</i>Failed</span></h3>
+<p class="small">2026-11-02 &middot; 7 majors, 2010 to Oct 2023</p>
+<p><b>Question:</b> Do ranges that meet the user&#x27;s quality rules turn back more than random levels?</p>
+<p><b>Result:</b> 579 touches: edge +1.0 points (-3.8 to +5.5), and -0.8 without EURUSD.</p>
+<p><b>Conclusion:</b> No edge shown, and too few touches to rule one out.</p>
+</div>
+<div class="card" id="marks">
+<h3>The user&#x27;s eye: marking ranges <span class="chip none"><i aria-hidden="true">&#9675;</i>Info</span></h3>
+<p class="small">2026-11-02 to 11-03 &middot; EURUSD and 6 other majors</p>
+<p><b>Question:</b> Can the user&#x27;s judgement of a valid zone be turned into rules?</p>
+<p><b>Result:</b> Unfiltered, about 27% of ranges were marked Correct. The best rules raised that to 57% on unseen ranges.</p>
+<p><b>Conclusion:</b> The eye can be partly copied by rules. &#x27;Messy&#x27; still isn&#x27;t captured.</p>
+</div>
+<div class="card" id="range-v1">
+<h3>Clear 1-hour ranges (two-sided zones) <span class="chip bad"><i aria-hidden="true">&#10005;</i>Failed</span></h3>
+<p class="small">2026-11-02 &middot; 7 majors, 2010 to Oct 2023</p>
+<p><b>Question:</b> After 2 touches on each side, do later touches turn back more than random levels? Also by touch number.</p>
+<p><b>Result:</b> 3,161 touches: edge -0.8 points (-2.9 to +1.3). The 3rd touch showed no edge. Swing lengths 3 and 8 also failed.</p>
+<p><b>Conclusion:</b> No edge, and win rates under 50% at equal 1 ATR moves.</p>
+</div>
+<div class="card" id="sr-robust">
+<h3>S/R robustness: 4 settings and 2 simple baselines <span class="chip bad"><i aria-hidden="true">&#10005;</i>Failed</span></h3>
+<p class="small">2026-11-02 &middot; 7 majors, 2010 to Oct 2023</p>
+<p><b>Question:</b> Do other swing lengths, zone widths, previous highs and lows, or round numbers do better?</p>
+<p><b>Result:</b> All 6 failed. Best: round numbers +0.5 points (-1.9 to +2.9); previous highs and lows -0.3 (-1.9 to +1.6).</p>
+<p><b>Conclusion:</b> Detector zones closed as a tested idea.</p>
+</div>
+<div class="card" id="sr-daily">
+<h3>Daily S/R zones against random levels <span class="chip bad"><i aria-hidden="true">&#10005;</i>Failed</span></h3>
+<p class="small">2026-11-02 &middot; 7 majors, 2010 to Oct 2023</p>
+<p><b>Question:</b> Do rule-built daily S/R zones turn price back 1 ATR more often than random levels?</p>
+<p><b>Result:</b> 1,461 touches. 47.8% turned back against 49.8% for random levels: edge -2.0 points, 95% range -5.3 to +1.2.</p>
+<p><b>Conclusion:</b> No edge. A +3 point edge is ruled out for this detector.</p>
+</div>
+</main><footer>Updated 2026-11-04 11:40. Built by code/site/build.py. No market prices are published here.</footer></body></html>
