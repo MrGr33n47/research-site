@@ -67,7 +67,22 @@ dialog .bar{display:flex;justify-content:space-between;align-items:center;gap:10
 dialog button{font:inherit;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:8px;padding:6px 12px;cursor:pointer}
 .stage{margin-top:30px}
 footer{color:var(--muted);font-size:13px;padding:0 0 32px}
-</style></head><body><header class="hero"><div class="wrap"><h1>Trading strategy research</h1><p>Find out whether a real, cost-adjusted trading edge exists that could earn extra income from part-time forex trading. Every idea is treated as a hypothesis: its rules and pass marks are written down and pushed before any result is seen, it is compared with chance, and it has to beat trading costs. Failed ideas are recorded, not tuned until they pass.</p></div></header><nav><div class="wrap"><a href="index.html" aria-current=page>Overview</a><a href="tests.html">Tests</a><a href="method.html">Method</a><a href="data.html">Data</a></div></nav><main><div class="wrap">
+.marks{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(340px,100%),1fr));gap:14px}
+.mark{background:var(--surface);border:2px solid var(--line);border-radius:12px;overflow:hidden}
+.mark[data-m=y]{border-color:var(--good)}.mark[data-m=n]{border-color:var(--bad)}
+.mark .thumb{border:0;border-radius:0;width:100%}
+.mark .do{padding:10px 12px;display:flex;flex-direction:column;gap:8px}
+.mark .row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.pick{font:inherit;font-size:15px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:8px;padding:7px 16px;cursor:pointer}
+.pick.y[aria-pressed=true]{background:var(--good);border-color:var(--good);color:#fff}
+.pick.n[aria-pressed=true]{background:var(--bad);border-color:var(--bad);color:#fff}
+.mark textarea{font:inherit;font-size:14px;width:100%;min-height:54px;border:1px solid var(--line);border-radius:8px;padding:6px 8px;background:var(--raised);color:var(--ink);resize:vertical}
+.sendbar{position:sticky;bottom:0;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-top:18px;
+display:flex;gap:10px;align-items:center;flex-wrap:wrap;box-shadow:0 -4px 16px rgba(0,0,0,.08)}
+.sendbar .main{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600}
+.meter{flex:1 1 160px;height:8px;background:var(--none-soft);border-radius:99px;overflow:hidden}.meter i{display:block;height:100%;background:var(--accent);width:0}
+@media (max-width:600px){.sendbar{padding:8px 10px;gap:6px}.sendbar .meter{display:none}.sendbar #count{flex:1 1 100%;font-size:14px}.sendbar .pick{padding:6px 10px;font-size:14px}}
+</style></head><body><header class="hero"><div class="wrap"><h1>Trading strategy research</h1><p>Find out whether a real, cost-adjusted trading edge exists that could earn extra income from part-time forex trading. Every idea is treated as a hypothesis: its rules and pass marks are written down and pushed before any result is seen, it is compared with chance, and it has to beat trading costs. Failed ideas are recorded, not tuned until they pass.</p></div></header><nav><div class="wrap"><a href="index.html" aria-current=page>Overview</a><a href="tests.html">Tests</a><a href="checks.html">Rule checks</a><a href="method.html">Method</a><a href="data.html">Data</a></div></nav><main><div class="wrap">
 <div class="tiles">
 <div class="tile"><b>0</b><span>Proven edges so far</span></div>
 <div class="tile"><b>13</b><span>Tests recorded</span></div>
@@ -75,6 +90,7 @@ footer{color:var(--muted);font-size:13px;padding:0 0 32px}
 <div class="tile"><b>525</b><span>Charts in the library</span></div>
 <div class="tile"><b>Unused</b><span>Holdout data, kept for one final check</span></div>
 </div>
+
 <h2>In progress</h2>
 <div class="card"><ul class="tasks"><li><span class="chip none">Waiting</span><span>Your decision on the next idea to test</span></li><li><span class="chip none">Waiting</span><span>Your blind marks on the 72 pullback-entry trades</span></li><li><span class="chip good">Done</span><span>Website redesign with chart libraries for every test</span></li><li><span class="chip good">Done</span><span>Pullback entry with a rejection candle on the trend structure: failed</span></li><li><span class="chip good">Done</span><span>Trend structure trades at 1.5R on a $10,000 play account: failed</span></li><li><span class="chip good">Done</span><span>Trend continuation, structure v3: failed</span></li></ul></div>
 <h2>Where the project stands</h2>
@@ -85,4 +101,4 @@ footer{color:var(--muted);font-size:13px;padding:0 0 32px}
 <div class="card"><p style="margin:0">Every version tested so far, from support and resistance zones to your own trend structure, has behaved like a random market plus costs.
 Making setups look cleaner to the eye improved how well the rules match your judgement, but not the results. The holdout data is untouched,
 so any future idea that passes still gets a clean final check.</p></div>
-</div></main><footer><div class="wrap">Updated 2026-11-05 08:33. Charts are pictures drawn from HistData prices, for research illustration only. No price data is published here.</div></footer></body></html>
+</div></main><footer><div class="wrap">Updated 2026-11-05 12:52. Charts are pictures drawn from HistData prices, for research illustration only. No price data is published here.</div></footer></body></html>

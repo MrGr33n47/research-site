@@ -67,9 +67,25 @@ dialog .bar{display:flex;justify-content:space-between;align-items:center;gap:10
 dialog button{font:inherit;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:8px;padding:6px 12px;cursor:pointer}
 .stage{margin-top:30px}
 footer{color:var(--muted);font-size:13px;padding:0 0 32px}
-</style></head><body><header class="hero"><div class="wrap"><h1>Trend structure trades at 1.5R</h1><p>Trading the confirmed trend like a bot: does it make money on a $10,000 play account?</p></div></header><nav><div class="wrap"><a href="../index.html">Overview</a><a href="../tests.html">Tests</a><a href="../method.html">Method</a><a href="../data.html">Data</a></div></nav><main><div class="wrap">
+.marks{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(340px,100%),1fr));gap:14px}
+.mark{background:var(--surface);border:2px solid var(--line);border-radius:12px;overflow:hidden}
+.mark[data-m=y]{border-color:var(--good)}.mark[data-m=n]{border-color:var(--bad)}
+.mark .thumb{border:0;border-radius:0;width:100%}
+.mark .do{padding:10px 12px;display:flex;flex-direction:column;gap:8px}
+.mark .row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.pick{font:inherit;font-size:15px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:8px;padding:7px 16px;cursor:pointer}
+.pick.y[aria-pressed=true]{background:var(--good);border-color:var(--good);color:#fff}
+.pick.n[aria-pressed=true]{background:var(--bad);border-color:var(--bad);color:#fff}
+.mark textarea{font:inherit;font-size:14px;width:100%;min-height:54px;border:1px solid var(--line);border-radius:8px;padding:6px 8px;background:var(--raised);color:var(--ink);resize:vertical}
+.sendbar{position:sticky;bottom:0;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-top:18px;
+display:flex;gap:10px;align-items:center;flex-wrap:wrap;box-shadow:0 -4px 16px rgba(0,0,0,.08)}
+.sendbar .main{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600}
+.meter{flex:1 1 160px;height:8px;background:var(--none-soft);border-radius:99px;overflow:hidden}.meter i{display:block;height:100%;background:var(--accent);width:0}
+@media (max-width:600px){.sendbar{padding:8px 10px;gap:6px}.sendbar .meter{display:none}.sendbar #count{flex:1 1 100%;font-size:14px}.sendbar .pick{padding:6px 10px;font-size:14px}}
+</style></head><body><header class="hero"><div class="wrap"><h1>Trend structure trades at 1.5R</h1><p>Trading the confirmed trend like a bot: does it make money on a $10,000 play account?</p></div></header><nav><div class="wrap"><a href="../index.html">Overview</a><a href="../tests.html">Tests</a><a href="../checks.html">Rule checks</a><a href="../method.html">Method</a><a href="../data.html">Data</a></div></nav><main><div class="wrap">
 <p class="small"><a href="../tests.html">All tests</a> &middot; 2026-11-04 &middot; 15 pairs, 2010 to Oct 2023</p>
 <p><span class="chip bad">Failed</span> <b>Lost money.</b></p>
+
 <div class="two">
 <div class="card"><h3>Rules tested</h3><ol class="rules"><li>Enter at the next 1-hour candle after a v3 structure is confirmed.</li><li>Stop 0.25 ATR beyond low 5, target a fixed 1.5R.</li><li>Real bid and ask fills, plus 0.7 pips commission.</li><li>$10,000 account, risking $100 (1%) a trade.</li></ol></div>
 <div><h3>Example</h3><figure><img class="chart" src="../charts/structure-trade/EURUSD-T1.png" alt="EURUSD-T1, 20 Jan 2010 23:00 UTC. Hit the target: +1.49R after costs, +149 dollars at $100 risk."><figcaption>EURUSD-T1, 20 Jan 2010 23:00 UTC. Hit the target: +1.49R after costs, +149 dollars at $100 risk.</figcaption></figure></div>
@@ -96,4 +112,4 @@ document.querySelectorAll(".filters button").forEach(b=>b.addEventListener("clic
 const f=b.dataset.f;items.forEach(i=>i.hidden=!(f==="all"||i.dataset.o===f))}));
 </script>
 
-</div></main><footer><div class="wrap">Updated 2026-11-05 08:33. Charts are pictures drawn from HistData prices, for research illustration only. No price data is published here.</div></footer></body></html>
+</div></main><footer><div class="wrap">Updated 2026-11-05 12:52. Charts are pictures drawn from HistData prices, for research illustration only. No price data is published here.</div></footer></body></html>

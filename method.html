@@ -67,13 +67,28 @@ dialog .bar{display:flex;justify-content:space-between;align-items:center;gap:10
 dialog button{font:inherit;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:8px;padding:6px 12px;cursor:pointer}
 .stage{margin-top:30px}
 footer{color:var(--muted);font-size:13px;padding:0 0 32px}
-</style></head><body><header class="hero"><div class="wrap"><h1>How each idea is judged</h1><p>The same discipline for every test.</p></div></header><nav><div class="wrap"><a href="index.html">Overview</a><a href="tests.html">Tests</a><a href="method.html" aria-current=page>Method</a><a href="data.html">Data</a></div></nav><main><div class="wrap">
+.marks{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(340px,100%),1fr));gap:14px}
+.mark{background:var(--surface);border:2px solid var(--line);border-radius:12px;overflow:hidden}
+.mark[data-m=y]{border-color:var(--good)}.mark[data-m=n]{border-color:var(--bad)}
+.mark .thumb{border:0;border-radius:0;width:100%}
+.mark .do{padding:10px 12px;display:flex;flex-direction:column;gap:8px}
+.mark .row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.pick{font:inherit;font-size:15px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:8px;padding:7px 16px;cursor:pointer}
+.pick.y[aria-pressed=true]{background:var(--good);border-color:var(--good);color:#fff}
+.pick.n[aria-pressed=true]{background:var(--bad);border-color:var(--bad);color:#fff}
+.mark textarea{font:inherit;font-size:14px;width:100%;min-height:54px;border:1px solid var(--line);border-radius:8px;padding:6px 8px;background:var(--raised);color:var(--ink);resize:vertical}
+.sendbar{position:sticky;bottom:0;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-top:18px;
+display:flex;gap:10px;align-items:center;flex-wrap:wrap;box-shadow:0 -4px 16px rgba(0,0,0,.08)}
+.sendbar .main{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600}
+.meter{flex:1 1 160px;height:8px;background:var(--none-soft);border-radius:99px;overflow:hidden}.meter i{display:block;height:100%;background:var(--accent);width:0}
+@media (max-width:600px){.sendbar{padding:8px 10px;gap:6px}.sendbar .meter{display:none}.sendbar #count{flex:1 1 100%;font-size:14px}.sendbar .pick{padding:6px 10px;font-size:14px}}
+</style></head><body><header class="hero"><div class="wrap"><h1>How each idea is judged</h1><p>The same discipline for every test.</p></div></header><nav><div class="wrap"><a href="index.html">Overview</a><a href="tests.html">Tests</a><a href="checks.html">Rule checks</a><a href="method.html" aria-current=page>Method</a><a href="data.html">Data</a></div></nav><main><div class="wrap">
 <div class="two">
 <div class="card"><h3>Rules first</h3><p>Each test's rules and pass marks are written and pushed to the private repo before any result is seen. A change after a result makes a new test, not a fix.</p></div>
 <div class="card"><h3>Against chance</h3><p>Zone tests compare with random levels, trade tests with random entries in the same conditions, and continuation with a random walk from the same starting point.</p></div>
 <div class="card"><h3>After costs</h3><p>Trades fill at real bid and ask prices on 1-minute candles, with an assumed 0.7 pip commission. A minute that hits both stop and target counts as a stop.</p></div>
 <div class="card"><h3>Enough evidence</h3><p>A pass needs enough events (300 trades, or 1,100 zone touches), an edge clearly above zero on a month-block 95% range, and consistency across pairs and periods.</p></div>
-<div class="card"><h3>Your eye</h3><p>Slideshows let you mark real setups blind. Marks shape the rules, which are then tested on data the marks never saw.</p></div>
+<div class="card"><h3>Your eye first</h3><p>Before a test runs, you mark 20 charts on the Rule checks page to confirm the code finds the setup you mean. Charts stop where the setup is known, so outcomes can't sway the rules.</p></div>
 <div class="card"><h3>One holdout</h3><p>November 2023 onward is untouched, for a single final check of anything that passes.</p></div>
 </div>
 <h2>Reading the numbers</h2>
@@ -82,4 +97,4 @@ footer{color:var(--muted);font-size:13px;padding:0 0 32px}
 <li><b>Edge in points:</b> how many percentage points more often something happened than chance would give.</li>
 <li><b>95% range:</b> where the true value plausibly lies, given the sample. A range that includes zero means no edge is shown.</li>
 </ul></div>
-</div></main><footer><div class="wrap">Updated 2026-11-05 08:33. Charts are pictures drawn from HistData prices, for research illustration only. No price data is published here.</div></footer></body></html>
+</div></main><footer><div class="wrap">Updated 2026-11-05 12:52. Charts are pictures drawn from HistData prices, for research illustration only. No price data is published here.</div></footer></body></html>
