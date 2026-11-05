@@ -1,0 +1,163 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Rule check: Old pullback entry with a minimum pullback size</title><style>
+:root{--bg:#f4f6f9;--surface:#fff;--raised:#f8f9fb;--ink:#16191d;--muted:#5b6470;--line:#e1e5ea;--accent:#2f6fb5;
+--good:#157a49;--good-soft:#e5f4ec;--bad:#b23a2c;--bad-soft:#fbeae7;--warn:#9a6400;--warn-soft:#fbf1dd;--none:#5f6773;--none-soft:#eef0f3;--hero:linear-gradient(135deg,#1d3557,#2f6fb5)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1013;--surface:#161a1f;--raised:#1b2026;--ink:#e7e9ec;--muted:#a0a8b2;--line:#2b3138;
+--accent:#7fb2e5;--good:#43b97d;--good-soft:#16281f;--bad:#e8705f;--bad-soft:#2e1a17;--warn:#e3a640;--warn-soft:#2c2414;--none:#a3aab4;--none-soft:#22272d;--hero:linear-gradient(135deg,#13233a,#24507f)}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 "Segoe UI",system-ui,-apple-system,Arial,sans-serif}
+a{color:var(--accent)}
+header.hero{background:var(--hero);color:#fff}
+header.hero .wrap{padding:28px 16px 24px}
+header.hero h1{margin:0 0 6px;font-size:28px;line-height:1.2}
+header.hero p{margin:0;max-width:800px;opacity:.92}
+nav{background:var(--surface);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+nav .wrap{display:flex;gap:22px;overflow-x:auto}
+nav a{color:var(--muted);text-decoration:none;padding:13px 0;white-space:nowrap;border-bottom:2px solid transparent;font-size:15px}
+nav a[aria-current=page]{color:var(--ink);border-color:var(--accent);font-weight:600}
+.wrap{max-width:1120px;margin:0 auto;padding:0 16px}
+main{padding:24px 0 56px}
+h2{font-size:21px;margin:34px 0 12px}
+h3{font-size:17px;margin:0 0 6px}
+.lead{color:var(--muted);font-size:17px;max-width:800px}
+.small{color:var(--muted);font-size:14px}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin:18px 0}
+.tile{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.tile b{display:block;font-size:26px;line-height:1.2}
+.tile span{color:var(--muted);font-size:14px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px;margin:12px 0}
+.card ul{margin:6px 0 0;padding-left:20px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(320px,100%),1fr));gap:14px}
+.testcard{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden;text-decoration:none;color:inherit;transition:box-shadow .15s,transform .15s}
+.testcard:hover{box-shadow:0 6px 20px rgba(0,0,0,.12);transform:translateY(-1px)}
+.testcard img{width:100%;aspect-ratio:880/418;object-fit:cover;background:#fff;border-bottom:1px solid var(--line)}
+.testcard .body{padding:14px 16px}
+.chip{display:inline-flex;align-items:center;border-radius:999px;padding:2px 10px;font-size:13px;font-weight:600;white-space:nowrap;vertical-align:middle}
+.chip.good{color:var(--good);background:var(--good-soft)}.chip.bad{color:var(--bad);background:var(--bad-soft)}
+.chip.run{color:var(--warn);background:var(--warn-soft)}.chip.none{color:var(--none);background:var(--none-soft)}
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:14px;color:var(--muted);font-weight:600;background:var(--raised)}
+tr:last-child td{border-bottom:0}
+ul.tasks{list-style:none;padding:0;margin:0}
+ul.tasks li{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--line)}
+ul.tasks li:last-child{border-bottom:0}
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px}
+.two>*,.grid>*{min-width:0}
+img{max-width:100%}
+@media (max-width:820px){.two{grid-template-columns:minmax(0,1fr)}}
+ol.rules{margin:0;padding-left:20px}
+ol.rules li{margin:4px 0}
+figure{margin:0}
+.chart{width:100%;height:auto;border:1px solid var(--line);border-radius:10px;background:#fff;display:block}
+figcaption{color:var(--muted);font-size:14px;margin-top:6px}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 14px}
+.filters button{font:inherit;font-size:14px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:6px 14px;cursor:pointer}
+.filters button[aria-pressed=true]{background:var(--accent);border-color:var(--accent);color:#fff}
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(250px,100%),1fr));gap:12px}
+.thumb{background:var(--surface);border:1px solid var(--line);border-radius:10px;overflow:hidden;cursor:pointer;padding:0;text-align:left;font:inherit;color:inherit}
+.thumb[hidden]{display:none}
+.thumb img{width:100%;display:block;background:#fff}
+.thumb span{display:block;padding:8px 10px;font-size:13px}
+.thumb .win{color:var(--good);font-weight:600}.thumb .loss{color:var(--bad);font-weight:600}
+dialog{border:0;border-radius:12px;padding:0;width:min(1100px,96vw);background:var(--surface);color:var(--ink)}
+dialog::backdrop{background:rgba(0,0,0,.65)}
+dialog img{width:100%;display:block;background:#fff}
+dialog .bar{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 14px;flex-wrap:wrap}
+dialog button{font:inherit;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:8px;padding:6px 12px;cursor:pointer}
+.stage{margin-top:30px}
+footer{color:var(--muted);font-size:13px;padding:0 0 32px}
+.marks{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(340px,100%),1fr));gap:14px}
+.mark{background:var(--surface);border:2px solid var(--line);border-radius:12px;overflow:hidden}
+.mark[data-m=y]{border-color:var(--good)}.mark[data-m=n]{border-color:var(--bad)}
+.mark .thumb{border:0;border-radius:0;width:100%}
+.mark .do{padding:10px 12px;display:flex;flex-direction:column;gap:8px}
+.mark .row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.pick{font:inherit;font-size:15px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:8px;padding:7px 16px;cursor:pointer}
+.pick.y[aria-pressed=true]{background:var(--good);border-color:var(--good);color:#fff}
+.pick.n[aria-pressed=true]{background:var(--bad);border-color:var(--bad);color:#fff}
+.mark textarea{font:inherit;font-size:14px;width:100%;min-height:54px;border:1px solid var(--line);border-radius:8px;padding:6px 8px;background:var(--raised);color:var(--ink);resize:vertical}
+.sendbar{position:sticky;bottom:0;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-top:18px;
+display:flex;gap:10px;align-items:center;flex-wrap:wrap;box-shadow:0 -4px 16px rgba(0,0,0,.08)}
+.sendbar .main{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600}
+.meter{flex:1 1 160px;height:8px;background:var(--none-soft);border-radius:99px;overflow:hidden}.meter i{display:block;height:100%;background:var(--accent);width:0}
+@media (max-width:600px){.sendbar{padding:8px 10px;gap:6px}.sendbar .meter{display:none}.sendbar #count{flex:1 1 100%;font-size:14px}.sendbar .pick{padding:6px 10px;font-size:14px}}
+</style></head><body><header class="hero"><div class="wrap"><h1>Rule check: Old pullback entry with a minimum pullback size</h1><p>With your old rules kept and small pullbacks removed, is this the trend and the pullback entry you mean?</p></div></header><nav><div class="wrap"><a href="../index.html">Overview</a><a href="../tests.html">Tests</a><a href="../checks.html" aria-current=page>Rule checks</a><a href="../method.html">Method</a><a href="../data.html">Data</a></div></nav><main><div class="wrap">
+<p class="small"><a href="../checks.html">All rule checks</a> &middot; 2026-11-05 &middot; round 1</p>
+<p><span class="chip run">Waiting for your marks</span></p>
+<div class="two">
+<div class="card"><h3>Draft rules</h3><ol class="rules"><li>1-hour candles. Your old trend structure, unchanged: low 1, high 2, low 3, high 4, low 5, high 6, with higher highs and higher lows, and at least 80 of the last 100 closes above the 200 SMA (orange line). Shorts mirror this.</li><li>New: both pullbacks inside the trend, high 2 to low 3 and high 4 to low 5, are each at least 1.5 ATR deep and at least 5 candles long.</li><li>Your old entry, unchanged: after high 6, price pulls back into high 4&#x27;s support zone (blue band, plus and minus 0.5 ATR).</li><li>A down candle is followed by an up candle closing at least half the down candle&#x27;s body above its close.</li><li>Entry at the next candle&#x27;s open. Stop 1 ATR below high 4, target 1.5R.</li><li>Cancelled by a close below the stop level, the trend filter failing, or 100 candles without entry.</li></ol></div>
+<div class="card"><h3>How to mark</h3><ul>
+<li><b>Right:</b> this is the setup you meant, found where you would have found it.</li>
+<li><b>Wrong:</b> it isn't. Say why in the note, for example which swing or candle is off.</li>
+<li>Each chart stops where the setup is known. What happened next is hidden on purpose, so judge the setup, not whether it would have paid.</li>
+<li>Marks save in this browser as you go. When you're done, <b>Send marks</b> opens a GitHub issue in the private repo with them filled in. Press <b>Submit</b> there.</li>
+</ul></div>
+</div>
+<h2>Charts</h2>
+<div class="marks"><div class="mark" data-id="1"><button class="thumb" data-full="../charts/check-pullback-size-r1/01.png" data-cap="Chart 1: AUDJPY-P1, 29 Mar 2011 02:00 UTC"><img loading="lazy" src="../charts/check-pullback-size-r1/01.png" alt="Chart 1: AUDJPY-P1, 29 Mar 2011 02:00 UTC"></button><div class="do"><span class="small">Chart 1: AUDJPY-P1, 29 Mar 2011 02:00 UTC</span><div class="row"><button class="pick y" data-v="y" aria-pressed="false">Right</button><button class="pick n" data-v="n" aria-pressed="false">Wrong</button></div><textarea placeholder="What's wrong, or anything to note (optional)" aria-label="Note for chart 1"></textarea></div></div><div class="mark" data-id="2"><button class="thumb" data-full="../charts/check-pullback-size-r1/02.png" data-cap="Chart 2: AUDUSD-P2, 25 Apr 2019 04:00 UTC"><img loading="lazy" src="../charts/check-pullback-size-r1/02.png" alt="Chart 2: AUDUSD-P2, 25 Apr 2019 04:00 UTC"></button><div class="do"><span class="small">Chart 2: AUDUSD-P2, 25 Apr 2019 04:00 UTC</span><div class="row"><button class="pick y" data-v="y" aria-pressed="false">Right</button><button class="pick n" data-v="n" aria-pressed="false">Wrong</button></div><textarea placeholder="What's wrong, or anything to note (optional)" aria-label="Note for chart 2"></textarea></div></div><div class="mark" data-id="3"><button class="thumb" data-full="../charts/check-pullback-size-r1/03.png" data-cap="Chart 3: AUDUSD-P3, 25 Apr 2019 19:00 UTC"><img loading="lazy" src="../charts/check-pullback-size-r1/03.png" alt="Chart 3: AUDUSD-P3, 25 Apr 2019 19:00 UTC"></button><div class="do"><span class="small">Chart 3: AUDUSD-P3, 25 Apr 2019 19:00 UTC</span><div class="row"><button class="pick y" data-v="y" aria-pressed="false">Right</button><button class="pick n" data-v="n" aria-pressed="false">Wrong</button></div><textarea placeholder="What's wrong, or anything to note (optional)" aria-label="Note for chart 3"></textarea></div></div><div class="mark" data-id="4"><button class="thumb" data-full="../charts/check-pullback-size-r1/04.png" data-cap="Chart 4: CADJPY-P1, 15 Jul 2016 12:00 UTC"><img loading="lazy" src="../charts/check-pullback-size-r1/04.png" alt="Chart 4: CADJPY-P1, 15 Jul 2016 12:00 UTC"></button><div class="do"><span class="small">Chart 4: CADJPY-P1, 15 Jul 2016 12:00 UTC</span><div class="row"><button class="pick y" data-v="y" aria-pressed="false">Right</button><button class="pick n" data-v="n" aria-pressed="false">Wrong</button></div><textarea placeholder="What's wrong, or anything to note (optional)" aria-label="Note for chart 4"></textarea></div></div><div class="mark" data-id="5"><button class="thumb" data-full="../charts/check-pullback-size-r1/05.png" data-cap="Chart 5: CADJPY-P2, 29 Jul 2022 15:00 UTC"><img loading="lazy" src="../charts/check-pullback-size-r1/05.png" alt="Chart 5: CADJPY-P2, 29 Jul 2022 15:00 UTC"></button><div class="do"><span class="small">Chart 5: CADJPY-P2, 29 Jul 2022 15:00 UTC</span><div class="row"><button class="pick y" data-v="y" aria-pressed="false">Right</button><button class="pick n" data-v="n" aria-pressed="false">Wrong</button></div><textarea placeholder="What's wrong, or anything to note (optional)" aria-label="Note for chart 5"></textarea></div></div><div class="mark" data-id="6"><button class="thumb" data-full="../charts/check-pullback-size-r1/06.png" data-cap="Chart 6: EURAUD-P1, 06 Jan 2021 22:00 UTC"><img loading="lazy" src="../charts/check-pullback-size-r1/06.png" alt="Chart 6: EURAUD-P1, 06 Jan 2021 22:00 UTC"></button><div class="do"><span class="small">Chart 6: EURAUD-P1, 06 Jan 2021 22:00 UTC</span><div class="row"><button class="pick y" data-v="y" aria-pressed="false">Right</button><button class="pick n" data-v="n" aria-pressed="false">Wrong</button></div><textarea placeholder="What's wrong, or anything to note (optional)" aria-label="Note for chart 6"></textarea></div></div><div class="mark" data-id="7"><button class="thumb" data-full="../charts/check-pullback-size-r1/07.png" data-cap="Chart 7: EURAUD-P2, 19 Oct 2021 22:00 UTC"><img loading="lazy" src="../charts/check-pullback-size-r1/07.png" alt="Chart 7: EURAUD-P2, 19 Oct 2021 22:00 UTC"></button><div class="do"><span class="small">Chart 7: EURAUD-P2, 19 Oct 2021 22:00 UTC</span><div class="row"><button class="pick y" data-v="y" aria-pressed="false">Right</button><button class="pick n" data-v="n" aria-pressed="false">Wrong</button></div><textarea placeholder="What's wrong, or anything to note (optional)" aria-label="Note for chart 7"></textarea></div></div><div class="mark" data-id="8"><button class="thumb" data-full="../charts/check-pullback-size-r1/08.png" data-cap="Chart 8: EURGBP-P1, 29 Jan 2019 23:00 UTC"><img loading="lazy" src="../charts/check-pullback-size-r1/08.png" alt="Chart 8: EURGBP-P1, 29 Jan 2019 23:00 UTC"></button><div class="do"><span class="small">Chart 8: EURGBP-P1, 29 Jan 2019 23:00 UTC</span><div class="row"><button class="pick y" data-v="y" aria-pressed="false">Right</button><button class="pick n" data-v="n" aria-pressed="false">Wrong</button></div><textarea placeholder="What's wrong, or anything to note (optional)" aria-label="Note for chart 8"></textarea></div></div><div class="mark" data-id="9"><button class="thumb" data-full="../charts/check-pullback-size-r1/09.png" data-cap="Chart 9: EURUSD-P2, 29 Sep 2017 14:00 UTC"><img loading="lazy" src="../charts/check-pullback-size-r1/09.png" alt="Chart 9: EURUSD-P2, 29 Sep 2017 14:00 UTC"></button><div class="do"><span class="small">Chart 9: EURUSD-P2, 29 Sep 2017 14:00 UTC</span><div class="row"><button class="pick y" data-v="y" aria-pressed="false">Right</button><button class="pick n" data-v="n" aria-pressed="false">Wrong</button></div><textarea placeholder="What's wrong, or anything to note (optional)" aria-label="Note for chart 9"></textarea></div></div><div class="mark" data-id="10"><button class="thumb" data-full="../charts/check-pullback-size-r1/10.png" data-cap="Chart 10: GBPCHF-P1, 24 Jun 2011 20:00 UTC"><img loading="lazy" src="../charts/check-pullback-size-r1/10.png" alt="Chart 10: GBPCHF-P1, 24 Jun 2011 20:00 UTC"></button><div class="do"><span class="small">Chart 10: GBPCHF-P1, 24 Jun 2011 20:00 UTC</span><div class="row"><button class="pick y" data-v="y" aria-pressed="false">Right</button><button class="pick n" data-v="n" aria-pressed="false">Wrong</button></div><textarea placeholder="What's wrong, or anything to note (optional)" aria-label="Note for chart 10"></textarea></div></div><div class="mark" data-id="11"><button class="thumb" data-full="../charts/check-pullback-size-r1/11.png" data-cap="Chart 11: GBPCHF-P2, 12 Sep 2011 11:00 UTC"><img loading="lazy" src="../charts/check-pullback-size-r1/11.png" alt="Chart 11: GBPCHF-P2, 12 Sep 2011 11:00 UTC"></button><div class="do"><span class="small">Chart 11: GBPCHF-P2, 12 Sep 2011 11:00 UTC</span><div class="row"><button class="pick y" data-v="y" aria-pressed="false">Right</button><button class="pick n" data-v="n" aria-pressed="false">Wrong</button></div><textarea placeholder="What's wrong, or anything to note (optional)" aria-label="Note for chart 11"></textarea></div></div><div class="mark" data-id="12"><button class="thumb" data-full="../charts/check-pullback-size-r1/12.png" data-cap="Chart 12: GBPCHF-P3, 20 Nov 2018 16:00 UTC"><img loading="lazy" src="../charts/check-pullback-size-r1/12.png" alt="Chart 12: GBPCHF-P3, 20 Nov 2018 16:00 UTC"></button><div class="do"><span class="small">Chart 12: GBPCHF-P3, 20 Nov 2018 16:00 UTC</span><div class="row"><button class="pick y" data-v="y" aria-pressed="false">Right</button><button class="pick n" data-v="n" aria-pressed="false">Wrong</button></div><textarea placeholder="What's wrong, or anything to note (optional)" aria-label="Note for chart 12"></textarea></div></div><div class="mark" data-id="13"><button class="thumb" data-full="../charts/check-pullback-size-r1/13.png" data-cap="Chart 13: GBPUSD-P1, 02 Jul 2014 19:00 UTC"><img loading="lazy" src="../charts/check-pullback-size-r1/13.png" alt="Chart 13: GBPUSD-P1, 02 Jul 2014 19:00 UTC"></button><div class="do"><span class="small">Chart 13: GBPUSD-P1, 02 Jul 2014 19:00 UTC</span><div class="row"><button class="pick y" data-v="y" aria-pressed="false">Right</button><button class="pick n" data-v="n" aria-pressed="false">Wrong</button></div><textarea placeholder="What's wrong, or anything to note (optional)" aria-label="Note for chart 13"></textarea></div></div><div class="mark" data-id="14"><button class="thumb" data-full="../charts/check-pullback-size-r1/14.png" data-cap="Chart 14: GBPUSD-P2, 06 Sep 2021 02:00 UTC"><img loading="lazy" src="../charts/check-pullback-size-r1/14.png" alt="Chart 14: GBPUSD-P2, 06 Sep 2021 02:00 UTC"></button><div class="do"><span class="small">Chart 14: GBPUSD-P2, 06 Sep 2021 02:00 UTC</span><div class="row"><button class="pick y" data-v="y" aria-pressed="false">Right</button><button class="pick n" data-v="n" aria-pressed="false">Wrong</button></div><textarea placeholder="What's wrong, or anything to note (optional)" aria-label="Note for chart 14"></textarea></div></div><div class="mark" data-id="15"><button class="thumb" data-full="../charts/check-pullback-size-r1/15.png" data-cap="Chart 15: NZDUSD-P1, 16 Nov 2011 14:00 UTC"><img loading="lazy" src="../charts/check-pullback-size-r1/15.png" alt="Chart 15: NZDUSD-P1, 16 Nov 2011 14:00 UTC"></button><div class="do"><span class="small">Chart 15: NZDUSD-P1, 16 Nov 2011 14:00 UTC</span><div class="row"><button class="pick y" data-v="y" aria-pressed="false">Right</button><button class="pick n" data-v="n" aria-pressed="false">Wrong</button></div><textarea placeholder="What's wrong, or anything to note (optional)" aria-label="Note for chart 15"></textarea></div></div><div class="mark" data-id="16"><button class="thumb" data-full="../charts/check-pullback-size-r1/16.png" data-cap="Chart 16: USDCAD-P1, 26 Dec 2016 01:00 UTC"><img loading="lazy" src="../charts/check-pullback-size-r1/16.png" alt="Chart 16: USDCAD-P1, 26 Dec 2016 01:00 UTC"></button><div class="do"><span class="small">Chart 16: USDCAD-P1, 26 Dec 2016 01:00 UTC</span><div class="row"><button class="pick y" data-v="y" aria-pressed="false">Right</button><button class="pick n" data-v="n" aria-pressed="false">Wrong</button></div><textarea placeholder="What's wrong, or anything to note (optional)" aria-label="Note for chart 16"></textarea></div></div><div class="mark" data-id="17"><button class="thumb" data-full="../charts/check-pullback-size-r1/17.png" data-cap="Chart 17: USDCHF-P1, 27 Mar 2015 01:01 UTC"><img loading="lazy" src="../charts/check-pullback-size-r1/17.png" alt="Chart 17: USDCHF-P1, 27 Mar 2015 01:01 UTC"></button><div class="do"><span class="small">Chart 17: USDCHF-P1, 27 Mar 2015 01:01 UTC</span><div class="row"><button class="pick y" data-v="y" aria-pressed="false">Right</button><button class="pick n" data-v="n" aria-pressed="false">Wrong</button></div><textarea placeholder="What's wrong, or anything to note (optional)" aria-label="Note for chart 17"></textarea></div></div><div class="mark" data-id="18"><button class="thumb" data-full="../charts/check-pullback-size-r1/18.png" data-cap="Chart 18: USDCHF-P2, 28 Oct 2015 12:00 UTC"><img loading="lazy" src="../charts/check-pullback-size-r1/18.png" alt="Chart 18: USDCHF-P2, 28 Oct 2015 12:00 UTC"></button><div class="do"><span class="small">Chart 18: USDCHF-P2, 28 Oct 2015 12:00 UTC</span><div class="row"><button class="pick y" data-v="y" aria-pressed="false">Right</button><button class="pick n" data-v="n" aria-pressed="false">Wrong</button></div><textarea placeholder="What's wrong, or anything to note (optional)" aria-label="Note for chart 18"></textarea></div></div><div class="mark" data-id="19"><button class="thumb" data-full="../charts/check-pullback-size-r1/19.png" data-cap="Chart 19: USDCHF-P3, 23 Oct 2017 18:00 UTC"><img loading="lazy" src="../charts/check-pullback-size-r1/19.png" alt="Chart 19: USDCHF-P3, 23 Oct 2017 18:00 UTC"></button><div class="do"><span class="small">Chart 19: USDCHF-P3, 23 Oct 2017 18:00 UTC</span><div class="row"><button class="pick y" data-v="y" aria-pressed="false">Right</button><button class="pick n" data-v="n" aria-pressed="false">Wrong</button></div><textarea placeholder="What's wrong, or anything to note (optional)" aria-label="Note for chart 19"></textarea></div></div><div class="mark" data-id="20"><button class="thumb" data-full="../charts/check-pullback-size-r1/20.png" data-cap="Chart 20: USDJPY-P1, 05 Jun 2012 15:00 UTC"><img loading="lazy" src="../charts/check-pullback-size-r1/20.png" alt="Chart 20: USDJPY-P1, 05 Jun 2012 15:00 UTC"></button><div class="do"><span class="small">Chart 20: USDJPY-P1, 05 Jun 2012 15:00 UTC</span><div class="row"><button class="pick y" data-v="y" aria-pressed="false">Right</button><button class="pick n" data-v="n" aria-pressed="false">Wrong</button></div><textarea placeholder="What's wrong, or anything to note (optional)" aria-label="Note for chart 20"></textarea></div></div></div>
+<div class="sendbar"><span id="count"></span><div class="meter"><i></i></div><button class="pick" id="clear">Clear</button><button class="pick" id="copy">Copy marks</button><button class="pick main" id="send">Send marks</button></div>
+<script type="application/json" id="check-data">{"id": "pullback-size-r1", "slug": "pullback-size", "round": 1, "repo": "MrGr33n47/trading-strategy-research", "ids": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"], "saved": null}</script>
+
+<script>
+const C=JSON.parse(document.getElementById("check-data").textContent);
+const KEY="rulecheck:"+C.id;
+let marks={};
+if(C.saved){marks=C.saved.marks||{}}else{try{marks=JSON.parse(localStorage.getItem(KEY))||{}}catch(e){marks={}}}
+function save(){if(C.saved)return;try{localStorage.setItem(KEY,JSON.stringify(marks))}catch(e){}}
+const cards=[...document.querySelectorAll(".mark")];
+function paint(){
+ let done=0,wrong=0;
+ cards.forEach(card=>{const m=(marks[card.dataset.id]||{}).m||"";card.dataset.m=m;
+  card.querySelectorAll(".pick").forEach(b=>b.setAttribute("aria-pressed",b.dataset.v===m));
+  if(m)done++;if(m==="n")wrong++});
+ document.getElementById("count").textContent=`${done} of ${cards.length} marked, ${wrong} Wrong`;
+ document.querySelector(".meter i").style.width=(100*done/cards.length)+"%";
+}
+cards.forEach(card=>{const id=card.dataset.id,note=card.querySelector("textarea");
+ note.value=(marks[id]||{}).note||"";
+ if(C.saved){note.readOnly=true;card.querySelectorAll(".pick").forEach(b=>b.disabled=true)}
+ card.querySelectorAll(".pick").forEach(b=>b.addEventListener("click",()=>{marks[id]=Object.assign(marks[id]||{},{m:b.dataset.v});save();paint()}));
+ note.addEventListener("input",()=>{marks[id]=Object.assign(marks[id]||{},{note:note.value});if(!note.value)delete marks[id].note;save()});
+});
+function body(){
+ const clean={};for(const id of C.ids){if(marks[id]&&(marks[id].m||marks[id].note))clean[id]=marks[id]}
+ const data={check:C.slug,round:C.round,charts:C.ids.length,marks:clean,sent:new Date().toISOString()};
+ return "Marks from the rule-check page. Please don't edit the block below.\n\n```json\n"+JSON.stringify(data)+"\n```\n";
+}
+async function copy(text){try{await navigator.clipboard.writeText(text);return true}catch(e){return false}}
+const send=document.getElementById("send");
+if(send)send.addEventListener("click",async()=>{
+ const done=C.ids.filter(id=>(marks[id]||{}).m).length;
+ if(done<C.ids.length&&!confirm(`Only ${done} of ${C.ids.length} charts are marked. Send anyway?`))return;
+ const title=encodeURIComponent(`Rule check: ${C.slug} round ${C.round}`);
+ let url=`https://github.com/${C.repo}/issues/new?title=${title}&body=${encodeURIComponent(body())}`;
+ if(url.length>7500){const ok=await copy(body());
+  url=`https://github.com/${C.repo}/issues/new?title=${title}&body=${encodeURIComponent("Paste the marks here.")}`;
+  alert(ok?"The marks are too long for a link, so they're on your clipboard. Paste them into the issue, replacing the text there.":"The marks are too long for a link. Use Copy marks, then paste them into the issue.")}
+ window.open(url,"_blank");
+});
+const cp=document.getElementById("copy");
+if(cp)cp.addEventListener("click",async()=>{alert(await copy(body())?"Marks copied.":"Copying was blocked by the browser.")});
+const clr=document.getElementById("clear");
+if(clr)clr.addEventListener("click",()=>{if(confirm("Clear every mark and note on this page?")){marks={};save();cards.forEach(c=>c.querySelector("textarea").value="");paint()}});
+paint();
+</script>
+
+
+<dialog id="box"><img id="boximg" alt=""><div class="bar"><span id="boxcap" class="small"></span><span>
+<button id="boxprev" aria-label="Previous chart">&#8592;</button> <button id="boxnext" aria-label="Next chart">&#8594;</button> <button id="boxclose">Close</button></span></div></dialog>
+<script>
+const items=[...document.querySelectorAll(".thumb")];let at=0;
+function visible(){return items.filter(i=>!i.hidden)}
+function show(i){const v=visible();if(!v.length)return;at=(i+v.length)%v.length;const t=v[at];const img=document.getElementById("boximg");img.src=t.dataset.full;
+img.alt=t.dataset.cap;document.getElementById("boxcap").textContent=`${at+1} of ${v.length}: ${t.dataset.cap}`;const d=document.getElementById("box");if(!d.open)d.showModal()}
+items.forEach(t=>t.addEventListener("click",()=>show(visible().indexOf(t))));
+document.getElementById("boxclose").onclick=()=>document.getElementById("box").close();
+document.getElementById("boxprev").onclick=()=>show(at-1);document.getElementById("boxnext").onclick=()=>show(at+1);
+document.addEventListener("keydown",e=>{if(!document.getElementById("box").open)return;if(e.key==="ArrowRight")show(at+1);if(e.key==="ArrowLeft")show(at-1)});
+document.querySelectorAll(".filters button").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll(".filters button").forEach(x=>x.setAttribute("aria-pressed",x===b));
+const f=b.dataset.f;items.forEach(i=>i.hidden=!(f==="all"||i.dataset.o===f))}));
+</script>
+
+</div></main><footer><div class="wrap">Updated 2026-11-05 20:39. Charts are pictures drawn from HistData prices, for research illustration only. No price data is published here.</div></footer></body></html>
