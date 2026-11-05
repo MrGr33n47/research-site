@@ -1,128 +1,70 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Test Reports</title><style>
-:root{--bg:#f6f7f9;--surface:#fff;--ink:#1b1f24;--muted:#59626c;--line:#dde1e6;--accent:#2f6fb5;--good:#167d4b;--bad:#b8392b;--warn:#9a6400;--none:#6b7280;--chipbg:#eef1f4}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1114;--surface:#171a1e;--ink:#e7e9ec;--muted:#a0a8b1;--line:#2c3137;--accent:#7fb2e5;--good:#3fb87a;--bad:#e76b5c;--warn:#e0a63b;--none:#9aa1ab;--chipbg:#22262b}}
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Tests</title><style>
+:root{--bg:#f4f6f9;--surface:#fff;--raised:#f8f9fb;--ink:#16191d;--muted:#5b6470;--line:#e1e5ea;--accent:#2f6fb5;
+--good:#157a49;--good-soft:#e5f4ec;--bad:#b23a2c;--bad-soft:#fbeae7;--warn:#9a6400;--warn-soft:#fbf1dd;--none:#5f6773;--none-soft:#eef0f3;--hero:linear-gradient(135deg,#1d3557,#2f6fb5)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1013;--surface:#161a1f;--raised:#1b2026;--ink:#e7e9ec;--muted:#a0a8b2;--line:#2b3138;
+--accent:#7fb2e5;--good:#43b97d;--good-soft:#16281f;--bad:#e8705f;--bad-soft:#2e1a17;--warn:#e3a640;--warn-soft:#2c2414;--none:#a3aab4;--none-soft:#22272d;--hero:linear-gradient(135deg,#13233a,#24507f)}}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 "Segoe UI",system-ui,-apple-system,Arial,sans-serif}
-nav{background:var(--surface);border-bottom:1px solid var(--line);position:sticky;top:0}
-nav div{max-width:1040px;margin:0 auto;padding:0 16px;display:flex;gap:20px;overflow-x:auto}
-nav a{color:var(--muted);text-decoration:none;padding:14px 0;white-space:nowrap;border-bottom:2px solid transparent}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 "Segoe UI",system-ui,-apple-system,Arial,sans-serif}
+a{color:var(--accent)}
+header.hero{background:var(--hero);color:#fff}
+header.hero .wrap{padding:28px 16px 24px}
+header.hero h1{margin:0 0 6px;font-size:28px;line-height:1.2}
+header.hero p{margin:0;max-width:800px;opacity:.92}
+nav{background:var(--surface);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+nav .wrap{display:flex;gap:22px;overflow-x:auto}
+nav a{color:var(--muted);text-decoration:none;padding:13px 0;white-space:nowrap;border-bottom:2px solid transparent;font-size:15px}
 nav a[aria-current=page]{color:var(--ink);border-color:var(--accent);font-weight:600}
-main{max-width:1040px;margin:0 auto;padding:24px 16px 48px}
-h1{font-size:28px;margin:0 0 6px}
-h2{font-size:20px;margin:32px 0 10px}
-.lead{color:var(--muted);font-size:17px;max-width:760px}
-.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:20px 0}
-.tile{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px}
-.tile b{display:block;font-size:24px}
-.tile span{color:var(--muted);font-size:14px}
-.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px;margin:12px 0}
-.card h3{margin:0 0 6px;font-size:17px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 16px}
+main{padding:24px 0 56px}
+h2{font-size:21px;margin:34px 0 12px}
+h3{font-size:17px;margin:0 0 6px}
+.lead{color:var(--muted);font-size:17px;max-width:800px}
 .small{color:var(--muted);font-size:14px}
-.chip{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:2px 10px;font-size:13px;font-weight:600;background:var(--chipbg);white-space:nowrap}
-.chip i{font-style:normal}
-.good{color:var(--good)}.bad{color:var(--bad)}.run{color:var(--warn)}.none{color:var(--none)}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin:18px 0}
+.tile{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.tile b{display:block;font-size:26px;line-height:1.2}
+.tile span{color:var(--muted);font-size:14px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px;margin:12px 0}
+.card ul{margin:6px 0 0;padding-left:20px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(320px,100%),1fr));gap:14px}
+.testcard{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden;text-decoration:none;color:inherit;transition:box-shadow .15s,transform .15s}
+.testcard:hover{box-shadow:0 6px 20px rgba(0,0,0,.12);transform:translateY(-1px)}
+.testcard img{width:100%;aspect-ratio:880/418;object-fit:cover;background:#fff;border-bottom:1px solid var(--line)}
+.testcard .body{padding:14px 16px}
+.chip{display:inline-flex;align-items:center;border-radius:999px;padding:2px 10px;font-size:13px;font-weight:600;white-space:nowrap;vertical-align:middle}
+.chip.good{color:var(--good);background:var(--good-soft)}.chip.bad{color:var(--bad);background:var(--bad-soft)}
+.chip.run{color:var(--warn);background:var(--warn-soft)}.chip.none{color:var(--none);background:var(--none-soft)}
 .scroll{overflow-x:auto}
-table{border-collapse:collapse;width:100%;background:var(--surface);border:1px solid var(--line);border-radius:10px}
-th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
-th{font-size:14px;color:var(--muted);font-weight:600}
+table{border-collapse:collapse;width:100%;background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:14px;color:var(--muted);font-weight:600;background:var(--raised)}
 tr:last-child td{border-bottom:0}
 ul.tasks{list-style:none;padding:0;margin:0}
-ul.tasks li{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--line)}
+ul.tasks li{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--line)}
 ul.tasks li:last-child{border-bottom:0}
-footer{max-width:1040px;margin:0 auto;padding:0 16px 32px;color:var(--muted);font-size:13px}
-</style></head><body><nav><div><a href="index.html">Overview</a><a href="tests.html" aria-current=page>Test reports</a><a href="data.html">Data</a></div></nav><main>
-<h1>Test reports</h1>
-<p class="lead">Every test so far, newest first. Edges are in percentage points over the comparison, and trade results in R, where 1R is the amount risked.</p>
-
-<div class="card" id="pullback-entry">
-<h3>Pullback to support with a rejection candle, 1.5R <span class="chip bad"><i aria-hidden="true">&#10005;</i>Failed</span></h3>
-<p class="small">2026-11-04 &middot; 15 pairs, 2010 to Oct 2023</p>
-<p><b>Question:</b> After a v3 trend structure, wait for a pullback into the broken high&#x27;s zone and a bullish rejection candle, then enter with the stop 1 ATR below that high and a 1.5R target.</p>
-<p><b>Result:</b> 72 trades, 33.3% winners against about 41.5% needed: -0.224R a trade after costs (range -0.52 to +0.10). $10,000 ended at $8,389, deepest drawdown 20.4%. The 25% and full-engulfing versions lost too.</p>
-<p><b>Conclusion:</b> Worse than entering at confirmation and worse than random entries. The broken high didn&#x27;t hold as support more often than chance.</p>
-</div>
-<div class="card" id="structure-trade">
-<h3>Trend structure trades at 1.5R, $10,000 play account <span class="chip bad"><i aria-hidden="true">&#10005;</i>Failed</span></h3>
-<p class="small">2026-11-04 &middot; 15 pairs, 2010 to Oct 2023</p>
-<p><b>Question:</b> Enter when a v3 trend structure is confirmed, stop below the last higher low, fixed 1.5R target, risking $100 (1%) a trade.</p>
-<p><b>Result:</b> 125 trades, 38.4% winners against about 41.5% needed: -0.077R a trade after costs (range -0.30 to +0.17). $10,000 ended at $9,037, with a deepest drawdown of 13.3%. Random entries in the same trend: +0.010R.</p>
-<p><b>Conclusion:</b> Lost money and did no better than random entries. Too few trades to rule out a small edge, but even that would earn little.</p>
-</div>
-<div class="card" id="structure-v3">
-<h3>Trend continuation, structure v3 <span class="chip bad"><i aria-hidden="true">&#10005;</i>Failed</span></h3>
-<p class="small">2026-11-04 &middot; 15 pairs, 2010 to Oct 2023</p>
-<p><b>Question:</b> Once a v3 structure is confirmed, does price make a new high before breaking low 5, more often than a random walk would?</p>
-<p><b>Result:</b> 130 structures: 56.9% continued against a 58.8% random-walk rate, edge -1.9 points (95% range -9.0 to +5.2).</p>
-<p><b>Conclusion:</b> No continuation edge over a random walk, and too few structures.</p>
-</div>
-<div class="card" id="structure-v2">
-<h3>Trend structure without retests <span class="chip none"><i aria-hidden="true">&#9675;</i>Too few</span></h3>
-<p class="small">2026-11-04 &middot; 15 pairs, 2010 to Oct 2023</p>
-<p><b>Question:</b> Pullbacks no deeper than half, legs 1 to 2 times the last, 100 closes past the 200 SMA.</p>
-<p><b>Result:</b> Only 9 structures in 14 years. The user marked all 9 Correct.</p>
-<p><b>Conclusion:</b> Matches the eye, but too rare. Loosened to v3 from counts only.</p>
-</div>
-<div class="card" id="structure-v1">
-<h3>Trend structure with retests (the user&#x27;s drawing) <span class="chip none"><i aria-hidden="true">&#9675;</i>Too few</span></h3>
-<p class="small">2026-11-04 &middot; 15 pairs, 2010 to Oct 2023</p>
-<p><b>Question:</b> Higher highs and lows whose pullbacks retest the broken high, entered on the next retest.</p>
-<p><b>Result:</b> Only 10 setups and 6 trades in 14 years. The user marked 9 of 10 setups Correct, but disliked the entries.</p>
-<p><b>Conclusion:</b> Matches the eye, but too rare to test or to trade.</p>
-</div>
-<div class="card" id="rayner">
-<h3>Rayner Teo&#x27;s 50 EMA pullback template, 1-hour <span class="chip bad"><i aria-hidden="true">&#10005;</i>Failed</span></h3>
-<p class="small">2026-11-03 &middot; 7 majors, 2010 to Oct 2023</p>
-<p><b>Question:</b> Whole trades: 200 and 50 EMA trend, pullback to the 50 EMA, trigger candle, 2 ATR stop, nearest swing target.</p>
-<p><b>Result:</b> 14,340 trades: -0.093R a trade after spread and commission (-0.107 to -0.079). Random entries in the same trend: -0.094R.</p>
-<p><b>Conclusion:</b> Clear loss in every pair and period. The near target gave small wins against full losses. The user judged most setups as ranges.</p>
-</div>
-<div class="card" id="trend-zones">
-<h3>Trend pullback zones <span class="chip bad"><i aria-hidden="true">&#10005;</i>Failed</span></h3>
-<p class="small">2026-11-03 &middot; 7 majors, 2010 to Oct 2023</p>
-<p><b>Question:</b> In a trend of 2 full swings with pullbacks to the 50 EMA, does the broken swing turn price back with the trend?</p>
-<p><b>Result:</b> 1,309 touches: edge -2.2 points (-4.7 to +0.3). Without the EMA rule: -3.5 (-5.8 to -1.3), worse than random.</p>
-<p><b>Conclusion:</b> Old resistance didn&#x27;t act as support. The user judged most of these trends as ranges.</p>
-</div>
-<div class="card" id="range-v3">
-<h3>Ranges with the confirmation rule (deciding test) <span class="chip bad"><i aria-hidden="true">&#10005;</i>Failed</span></h3>
-<p class="small">2026-11-04 &middot; 8 crosses (fresh data), 2010 to Oct 2023</p>
-<p><b>Question:</b> With swing 4&#x27;s zone only tradable after a full move to the other side, is there an edge on data that shaped no rule?</p>
-<p><b>Result:</b> 476 touches: edge +1.0 points (-4.0 to +5.9). Win rate 52.3% against about 54.2% needed to cover spread. Majors: +0.1.</p>
-<p><b>Conclusion:</b> 1-hour ranges closed. A tiny edge can&#x27;t be ruled out but couldn&#x27;t pay.</p>
-</div>
-<div class="card" id="range-v2">
-<h3>Ranges from the user&#x27;s marks <span class="chip bad"><i aria-hidden="true">&#10005;</i>Failed</span></h3>
-<p class="small">2026-11-02 &middot; 7 majors, 2010 to Oct 2023</p>
-<p><b>Question:</b> Do ranges that meet the user&#x27;s quality rules turn back more than random levels?</p>
-<p><b>Result:</b> 579 touches: edge +1.0 points (-3.8 to +5.5), and -0.8 without EURUSD.</p>
-<p><b>Conclusion:</b> No edge shown, and too few touches to rule one out.</p>
-</div>
-<div class="card" id="marks">
-<h3>The user&#x27;s eye: marking ranges <span class="chip none"><i aria-hidden="true">&#9675;</i>Info</span></h3>
-<p class="small">2026-11-02 to 11-03 &middot; EURUSD and 6 other majors</p>
-<p><b>Question:</b> Can the user&#x27;s judgement of a valid zone be turned into rules?</p>
-<p><b>Result:</b> Unfiltered, about 27% of ranges were marked Correct. The best rules raised that to 57% on unseen ranges.</p>
-<p><b>Conclusion:</b> The eye can be partly copied by rules. &#x27;Messy&#x27; still isn&#x27;t captured.</p>
-</div>
-<div class="card" id="range-v1">
-<h3>Clear 1-hour ranges (two-sided zones) <span class="chip bad"><i aria-hidden="true">&#10005;</i>Failed</span></h3>
-<p class="small">2026-11-02 &middot; 7 majors, 2010 to Oct 2023</p>
-<p><b>Question:</b> After 2 touches on each side, do later touches turn back more than random levels? Also by touch number.</p>
-<p><b>Result:</b> 3,161 touches: edge -0.8 points (-2.9 to +1.3). The 3rd touch showed no edge. Swing lengths 3 and 8 also failed.</p>
-<p><b>Conclusion:</b> No edge, and win rates under 50% at equal 1 ATR moves.</p>
-</div>
-<div class="card" id="sr-robust">
-<h3>S/R robustness: 4 settings and 2 simple baselines <span class="chip bad"><i aria-hidden="true">&#10005;</i>Failed</span></h3>
-<p class="small">2026-11-02 &middot; 7 majors, 2010 to Oct 2023</p>
-<p><b>Question:</b> Do other swing lengths, zone widths, previous highs and lows, or round numbers do better?</p>
-<p><b>Result:</b> All 6 failed. Best: round numbers +0.5 points (-1.9 to +2.9); previous highs and lows -0.3 (-1.9 to +1.6).</p>
-<p><b>Conclusion:</b> Detector zones closed as a tested idea.</p>
-</div>
-<div class="card" id="sr-daily">
-<h3>Daily S/R zones against random levels <span class="chip bad"><i aria-hidden="true">&#10005;</i>Failed</span></h3>
-<p class="small">2026-11-02 &middot; 7 majors, 2010 to Oct 2023</p>
-<p><b>Question:</b> Do rule-built daily S/R zones turn price back 1 ATR more often than random levels?</p>
-<p><b>Result:</b> 1,461 touches. 47.8% turned back against 49.8% for random levels: edge -2.0 points, 95% range -5.3 to +1.2.</p>
-<p><b>Conclusion:</b> No edge. A +3 point edge is ruled out for this detector.</p>
-</div>
-</main><footer>Updated 2026-11-04 13:31. Built by code/site/build.py. No market prices are published here.</footer></body></html>
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px}
+.two>*,.grid>*{min-width:0}
+img{max-width:100%}
+@media (max-width:820px){.two{grid-template-columns:minmax(0,1fr)}}
+ol.rules{margin:0;padding-left:20px}
+ol.rules li{margin:4px 0}
+figure{margin:0}
+.chart{width:100%;height:auto;border:1px solid var(--line);border-radius:10px;background:#fff;display:block}
+figcaption{color:var(--muted);font-size:14px;margin-top:6px}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 14px}
+.filters button{font:inherit;font-size:14px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:6px 14px;cursor:pointer}
+.filters button[aria-pressed=true]{background:var(--accent);border-color:var(--accent);color:#fff}
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(250px,100%),1fr));gap:12px}
+.thumb{background:var(--surface);border:1px solid var(--line);border-radius:10px;overflow:hidden;cursor:pointer;padding:0;text-align:left;font:inherit;color:inherit}
+.thumb[hidden]{display:none}
+.thumb img{width:100%;display:block;background:#fff}
+.thumb span{display:block;padding:8px 10px;font-size:13px}
+.thumb .win{color:var(--good);font-weight:600}.thumb .loss{color:var(--bad);font-weight:600}
+dialog{border:0;border-radius:12px;padding:0;width:min(1100px,96vw);background:var(--surface);color:var(--ink)}
+dialog::backdrop{background:rgba(0,0,0,.65)}
+dialog img{width:100%;display:block;background:#fff}
+dialog .bar{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 14px;flex-wrap:wrap}
+dialog button{font:inherit;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:8px;padding:6px 12px;cursor:pointer}
+.stage{margin-top:30px}
+footer{color:var(--muted);font-size:13px;padding:0 0 32px}
+</style></head><body><header class="hero"><div class="wrap"><h1>Tests</h1><p>What was tested, how, and what happened.</p></div></header><nav><div class="wrap"><a href="index.html">Overview</a><a href="tests.html" aria-current=page>Tests</a><a href="method.html">Method</a><a href="data.html">Data</a></div></nav><main><div class="wrap"><p class="lead">Every test, grouped by stage. Each page has the rules tested, an example chart, the results and a library of the real charts behind them.</p><section class="stage"><h2>Support and resistance zones</h2><p class="small">Daily zones built by rule, and simple levels, tested against random levels.</p><div class="grid"><a class="testcard" href="tests/sr-daily.html"><img loading="lazy" src="charts/sr-daily/default.png" alt=""><div class="body"><h3>Daily S/R zones against random levels</h3><p style="margin:4px 0"><span class="chip bad">Failed</span> <span class="small">2026-11-02</span></p><p class="small" style="margin:0">The detector&#x27;s zones show no reversal edge.</p></div></a><a class="testcard" href="tests/sr-robust.html"><img loading="lazy" src="charts/sr-robust/swing3.png" alt=""><div class="body"><h3>S/R robustness: other settings and simple baselines</h3><p style="margin:4px 0"><span class="chip bad">Failed</span> <span class="small">2026-11-02</span></p><p class="small" style="margin:0">Detector zones closed as a tested idea.</p></div></a></div></section><section class="stage"><h2>1-hour ranges</h2><p class="small">Two-sided ranges, then rules shaped by your own marks, tested on the majors and then on fresh crosses.</p><div class="grid"><a class="testcard" href="tests/range-v1.html"><img loading="lazy" src="charts/range-v1/107.png" alt=""><div class="body"><h3>Clear 1-hour ranges</h3><p style="margin:4px 0"><span class="chip bad">Failed</span> <span class="small">2026-11-02</span></p><p class="small" style="margin:0">Closed under this definition.</p></div></a><a class="testcard" href="tests/marks.html"><img loading="lazy" src="charts/marks/GBPUSD-63.png" alt=""><div class="body"><h3>Your eye: marking ranges</h3><p style="margin:4px 0"><span class="chip none">Info</span> <span class="small">2026-11-02 to 11-03</span></p><p class="small" style="margin:0">The rules match your eye better each round, but the edge didn&#x27;t improve.</p></div></a><a class="testcard" href="tests/range-v2.html"><img loading="lazy" src="charts/range-v2/184.png" alt=""><div class="body"><h3>Ranges from your marks</h3><p style="margin:4px 0"><span class="chip bad">Failed</span> <span class="small">2026-11-02</span></p><p class="small" style="margin:0">Failed.</p></div></a><a class="testcard" href="tests/range-v3.html"><img loading="lazy" src="charts/range-v3/USDCHF-97.png" alt=""><div class="body"><h3>Ranges with the confirmation rule: the deciding test</h3><p style="margin:4px 0"><span class="chip bad">Failed</span> <span class="small">2026-11-04</span></p><p class="small" style="margin:0">1-hour ranges closed.</p></div></a></div></section><section class="stage"><h2>Trend pullbacks</h2><p class="small">Pullbacks into zones and to the 50 EMA inside trends.</p><div class="grid"><a class="testcard" href="tests/trend-zones.html"><img loading="lazy" src="charts/trend-zones/NZDUSD-T88.png" alt=""><div class="body"><h3>Trend pullback zones</h3><p style="margin:4px 0"><span class="chip bad">Failed</span> <span class="small">2026-11-03</span></p><p class="small" style="margin:0">Failed, and worse than random without the EMA rule.</p></div></a><a class="testcard" href="tests/rayner.html"><img loading="lazy" src="charts/rayner/GBPUSD-P1100.png" alt=""><div class="body"><h3>Rayner Teo&#x27;s 50 EMA pullback template, 1-hour</h3><p style="margin:4px 0"><span class="chip bad">Failed</span> <span class="small">2026-11-03</span></p><p class="small" style="margin:0">Failed clearly.</p></div></a></div></section><section class="stage"><h2>Trend structure</h2><p class="small">Your own trend definition: higher highs and higher lows, then continuation and whole trades.</p><div class="grid"><a class="testcard" href="tests/structure-v1.html"><img loading="lazy" src="charts/structure-v1/AUDJPY-S2.png" alt=""><div class="body"><h3>Trend structure with retests</h3><p style="margin:4px 0"><span class="chip none">Too few</span> <span class="small">2026-11-04</span></p><p class="small" style="margin:0">Too rare to test.</p></div></a><a class="testcard" href="tests/structure-v2.html"><img loading="lazy" src="charts/structure-v2/AUDJPY-C2.png" alt=""><div class="body"><h3>Trend structure without retests</h3><p style="margin:4px 0"><span class="chip none">Too few</span> <span class="small">2026-11-04</span></p><p class="small" style="margin:0">Too rare to test.</p></div></a><a class="testcard" href="tests/structure-v3.html"><img loading="lazy" src="charts/structure-v3/NZDUSD-C1.png" alt=""><div class="body"><h3>Trend continuation, structure v3</h3><p style="margin:4px 0"><span class="chip bad">Failed</span> <span class="small">2026-11-04</span></p><p class="small" style="margin:0">No continuation edge.</p></div></a><a class="testcard" href="tests/structure-trade.html"><img loading="lazy" src="charts/structure-trade/EURUSD-T1.png" alt=""><div class="body"><h3>Trend structure trades at 1.5R</h3><p style="margin:4px 0"><span class="chip bad">Failed</span> <span class="small">2026-11-04</span></p><p class="small" style="margin:0">125 trades, -0.077R a trade. $10,000 became $9,037.</p></div></a><a class="testcard" href="tests/pullback-entry.html"><img loading="lazy" src="charts/pullback-entry/EURUSD-T1.png" alt=""><div class="body"><h3>Pullback to support with a rejection candle</h3><p style="margin:4px 0"><span class="chip bad">Failed</span> <span class="small">2026-11-04</span></p><p class="small" style="margin:0">72 trades, -0.224R a trade. $10,000 became $8,389.</p></div></a></div></section></div></main><footer><div class="wrap">Updated 2026-11-05 08:33. Charts are pictures drawn from HistData prices, for research illustration only. No price data is published here.</div></footer></body></html>

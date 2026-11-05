@@ -1,58 +1,88 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Trading Research Status</title><style>
-:root{--bg:#f6f7f9;--surface:#fff;--ink:#1b1f24;--muted:#59626c;--line:#dde1e6;--accent:#2f6fb5;--good:#167d4b;--bad:#b8392b;--warn:#9a6400;--none:#6b7280;--chipbg:#eef1f4}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1114;--surface:#171a1e;--ink:#e7e9ec;--muted:#a0a8b1;--line:#2c3137;--accent:#7fb2e5;--good:#3fb87a;--bad:#e76b5c;--warn:#e0a63b;--none:#9aa1ab;--chipbg:#22262b}}
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Trading Research</title><style>
+:root{--bg:#f4f6f9;--surface:#fff;--raised:#f8f9fb;--ink:#16191d;--muted:#5b6470;--line:#e1e5ea;--accent:#2f6fb5;
+--good:#157a49;--good-soft:#e5f4ec;--bad:#b23a2c;--bad-soft:#fbeae7;--warn:#9a6400;--warn-soft:#fbf1dd;--none:#5f6773;--none-soft:#eef0f3;--hero:linear-gradient(135deg,#1d3557,#2f6fb5)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1013;--surface:#161a1f;--raised:#1b2026;--ink:#e7e9ec;--muted:#a0a8b2;--line:#2b3138;
+--accent:#7fb2e5;--good:#43b97d;--good-soft:#16281f;--bad:#e8705f;--bad-soft:#2e1a17;--warn:#e3a640;--warn-soft:#2c2414;--none:#a3aab4;--none-soft:#22272d;--hero:linear-gradient(135deg,#13233a,#24507f)}}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 "Segoe UI",system-ui,-apple-system,Arial,sans-serif}
-nav{background:var(--surface);border-bottom:1px solid var(--line);position:sticky;top:0}
-nav div{max-width:1040px;margin:0 auto;padding:0 16px;display:flex;gap:20px;overflow-x:auto}
-nav a{color:var(--muted);text-decoration:none;padding:14px 0;white-space:nowrap;border-bottom:2px solid transparent}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 "Segoe UI",system-ui,-apple-system,Arial,sans-serif}
+a{color:var(--accent)}
+header.hero{background:var(--hero);color:#fff}
+header.hero .wrap{padding:28px 16px 24px}
+header.hero h1{margin:0 0 6px;font-size:28px;line-height:1.2}
+header.hero p{margin:0;max-width:800px;opacity:.92}
+nav{background:var(--surface);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+nav .wrap{display:flex;gap:22px;overflow-x:auto}
+nav a{color:var(--muted);text-decoration:none;padding:13px 0;white-space:nowrap;border-bottom:2px solid transparent;font-size:15px}
 nav a[aria-current=page]{color:var(--ink);border-color:var(--accent);font-weight:600}
-main{max-width:1040px;margin:0 auto;padding:24px 16px 48px}
-h1{font-size:28px;margin:0 0 6px}
-h2{font-size:20px;margin:32px 0 10px}
-.lead{color:var(--muted);font-size:17px;max-width:760px}
-.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:20px 0}
-.tile{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px}
-.tile b{display:block;font-size:24px}
-.tile span{color:var(--muted);font-size:14px}
-.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px;margin:12px 0}
-.card h3{margin:0 0 6px;font-size:17px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 16px}
+main{padding:24px 0 56px}
+h2{font-size:21px;margin:34px 0 12px}
+h3{font-size:17px;margin:0 0 6px}
+.lead{color:var(--muted);font-size:17px;max-width:800px}
 .small{color:var(--muted);font-size:14px}
-.chip{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:2px 10px;font-size:13px;font-weight:600;background:var(--chipbg);white-space:nowrap}
-.chip i{font-style:normal}
-.good{color:var(--good)}.bad{color:var(--bad)}.run{color:var(--warn)}.none{color:var(--none)}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin:18px 0}
+.tile{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.tile b{display:block;font-size:26px;line-height:1.2}
+.tile span{color:var(--muted);font-size:14px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px;margin:12px 0}
+.card ul{margin:6px 0 0;padding-left:20px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(320px,100%),1fr));gap:14px}
+.testcard{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden;text-decoration:none;color:inherit;transition:box-shadow .15s,transform .15s}
+.testcard:hover{box-shadow:0 6px 20px rgba(0,0,0,.12);transform:translateY(-1px)}
+.testcard img{width:100%;aspect-ratio:880/418;object-fit:cover;background:#fff;border-bottom:1px solid var(--line)}
+.testcard .body{padding:14px 16px}
+.chip{display:inline-flex;align-items:center;border-radius:999px;padding:2px 10px;font-size:13px;font-weight:600;white-space:nowrap;vertical-align:middle}
+.chip.good{color:var(--good);background:var(--good-soft)}.chip.bad{color:var(--bad);background:var(--bad-soft)}
+.chip.run{color:var(--warn);background:var(--warn-soft)}.chip.none{color:var(--none);background:var(--none-soft)}
 .scroll{overflow-x:auto}
-table{border-collapse:collapse;width:100%;background:var(--surface);border:1px solid var(--line);border-radius:10px}
-th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
-th{font-size:14px;color:var(--muted);font-weight:600}
+table{border-collapse:collapse;width:100%;background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:14px;color:var(--muted);font-weight:600;background:var(--raised)}
 tr:last-child td{border-bottom:0}
 ul.tasks{list-style:none;padding:0;margin:0}
-ul.tasks li{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--line)}
+ul.tasks li{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--line)}
 ul.tasks li:last-child{border-bottom:0}
-footer{max-width:1040px;margin:0 auto;padding:0 16px 32px;color:var(--muted);font-size:13px}
-</style></head><body><nav><div><a href="index.html" aria-current=page>Overview</a><a href="tests.html">Test reports</a><a href="data.html">Data</a></div></nav><main>
-<h1>Trading strategy research</h1>
-<p class="lead">Find out whether a real, cost-adjusted trading edge exists that can earn extra income from part-time forex trading. Every idea is a hypothesis: its rules are written and pushed before any result is seen, it is compared with random entries or levels, and it must clear costs. A failed idea is recorded, not tuned until it passes.</p>
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px}
+.two>*,.grid>*{min-width:0}
+img{max-width:100%}
+@media (max-width:820px){.two{grid-template-columns:minmax(0,1fr)}}
+ol.rules{margin:0;padding-left:20px}
+ol.rules li{margin:4px 0}
+figure{margin:0}
+.chart{width:100%;height:auto;border:1px solid var(--line);border-radius:10px;background:#fff;display:block}
+figcaption{color:var(--muted);font-size:14px;margin-top:6px}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 14px}
+.filters button{font:inherit;font-size:14px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:6px 14px;cursor:pointer}
+.filters button[aria-pressed=true]{background:var(--accent);border-color:var(--accent);color:#fff}
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(250px,100%),1fr));gap:12px}
+.thumb{background:var(--surface);border:1px solid var(--line);border-radius:10px;overflow:hidden;cursor:pointer;padding:0;text-align:left;font:inherit;color:inherit}
+.thumb[hidden]{display:none}
+.thumb img{width:100%;display:block;background:#fff}
+.thumb span{display:block;padding:8px 10px;font-size:13px}
+.thumb .win{color:var(--good);font-weight:600}.thumb .loss{color:var(--bad);font-weight:600}
+dialog{border:0;border-radius:12px;padding:0;width:min(1100px,96vw);background:var(--surface);color:var(--ink)}
+dialog::backdrop{background:rgba(0,0,0,.65)}
+dialog img{width:100%;display:block;background:#fff}
+dialog .bar{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 14px;flex-wrap:wrap}
+dialog button{font:inherit;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:8px;padding:6px 12px;cursor:pointer}
+.stage{margin-top:30px}
+footer{color:var(--muted);font-size:13px;padding:0 0 32px}
+</style></head><body><header class="hero"><div class="wrap"><h1>Trading strategy research</h1><p>Find out whether a real, cost-adjusted trading edge exists that could earn extra income from part-time forex trading. Every idea is treated as a hypothesis: its rules and pass marks are written down and pushed before any result is seen, it is compared with chance, and it has to beat trading costs. Failed ideas are recorded, not tuned until they pass.</p></div></header><nav><div class="wrap"><a href="index.html" aria-current=page>Overview</a><a href="tests.html">Tests</a><a href="method.html">Method</a><a href="data.html">Data</a></div></nav><main><div class="wrap">
 <div class="tiles">
 <div class="tile"><b>0</b><span>Proven edges so far</span></div>
 <div class="tile"><b>13</b><span>Tests recorded</span></div>
-<div class="tile"><b>15</b><span>Currency pairs of data</span></div>
+<div class="tile"><b>15</b><span>Currency pairs, 2010 to 2026</span></div>
+<div class="tile"><b>525</b><span>Charts in the library</span></div>
 <div class="tile"><b>Unused</b><span>Holdout data, kept for one final check</span></div>
 </div>
 <h2>In progress</h2>
-<div class="card"><ul class="tasks"><li><span class="chip none"><i aria-hidden="true">&#9675;</i>Waiting</span><span>The user&#x27;s decision on the next idea</span></li><li><span class="chip good"><i aria-hidden="true">&#10003;</i>Done</span><span>Pullback entry with a rejection candle on the trend structure: failed</span></li><li><span class="chip good"><i aria-hidden="true">&#10003;</i>Done</span><span>Trend structure trades at 1.5R on a $10,000 play account: failed</span></li><li><span class="chip good"><i aria-hidden="true">&#10003;</i>Done</span><span>Trend continuation test, structure v3, on all 15 pairs: failed</span></li><li><span class="chip good"><i aria-hidden="true">&#10003;</i>Done</span><span>Project status site started</span></li><li><span class="chip good"><i aria-hidden="true">&#10003;</i>Done</span><span>Cross-pair data: 8 crosses downloaded, converted and checked</span></li><li><span class="chip good"><i aria-hidden="true">&#10003;</i>Done</span><span>Deciding test of the 1-hour range rules on the crosses: failed</span></li></ul></div>
+<div class="card"><ul class="tasks"><li><span class="chip none">Waiting</span><span>Your decision on the next idea to test</span></li><li><span class="chip none">Waiting</span><span>Your blind marks on the 72 pullback-entry trades</span></li><li><span class="chip good">Done</span><span>Website redesign with chart libraries for every test</span></li><li><span class="chip good">Done</span><span>Pullback entry with a rejection candle on the trend structure: failed</span></li><li><span class="chip good">Done</span><span>Trend structure trades at 1.5R on a $10,000 play account: failed</span></li><li><span class="chip good">Done</span><span>Trend continuation, structure v3: failed</span></li></ul></div>
 <h2>Where the project stands</h2>
-<div class="scroll"><table><thead><tr><th>Stage</th><th>Status</th><th>Detail</th></tr></thead><tbody><tr><td><b>Data</b></td><td><span class="chip good"><i aria-hidden="true">&#10003;</i>Done, with gaps</span></td><td>15 pairs from HistData, every month accounted for. Clock rules set from each pair&#x27;s own evidence. January to July 2023 has holes on every pair and isn&#x27;t scored. No broker comparison yet.</td></tr><tr><td><b>Software</b></td><td><span class="chip good"><i aria-hidden="true">&#10003;</i>Done</span></td><td>Detectors, event and trade simulators, placebo and random-entry comparisons, with automated tests including no-lookahead checks.</td></tr><tr><td><b>S/R zones (daily)</b></td><td><span class="chip bad"><i aria-hidden="true">&#10005;</i>Failed</span></td><td>Rule-built zones and simple levels showed no reversal edge over random levels.</td></tr><tr><td><b>1-hour ranges</b></td><td><span class="chip bad"><i aria-hidden="true">&#10005;</i>Failed</span></td><td>Three rule versions, two built from the user&#x27;s marks, failed on the majors and on the fresh crosses.</td></tr><tr><td><b>Trend pullbacks</b></td><td><span class="chip bad"><i aria-hidden="true">&#10005;</i>Failed</span></td><td>Trend pullback zones and Rayner Teo&#x27;s 1-hour pullback template both failed.</td></tr><tr><td><b>Trend structure</b></td><td><span class="chip bad"><i aria-hidden="true">&#10005;</i>Failed</span></td><td>The user&#x27;s own trend definition. v1 and v2 matched the user&#x27;s eye but were too rare to test. v3 showed no continuation edge.</td></tr><tr><td><b>Holdout</b></td><td><span class="chip none"><i aria-hidden="true">&#9675;</i>Unused</span></td><td>Kept for one final check of a version that passes. It can only be used once.</td></tr></tbody></table></div>
+<div class="scroll"><table><thead><tr><th>Stage</th><th>Results</th><th>Tests</th></tr></thead><tbody><tr><td><b>Support and resistance zones</b><br><span class='small'>Daily zones built by rule, and simple levels, tested against random levels.</span></td><td><span class="chip bad">Failed</span></td><td class='small'><a href="tests/sr-daily.html">Daily S/R zones against random levels</a>, <a href="tests/sr-robust.html">S/R robustness: other settings and simple baselines</a></td></tr><tr><td><b>1-hour ranges</b><br><span class='small'>Two-sided ranges, then rules shaped by your own marks, tested on the majors and then on fresh crosses.</span></td><td><span class="chip bad">Failed</span> <span class="chip none">Info</span></td><td class='small'><a href="tests/range-v1.html">Clear 1-hour ranges</a>, <a href="tests/marks.html">Your eye: marking ranges</a>, <a href="tests/range-v2.html">Ranges from your marks</a>, <a href="tests/range-v3.html">Ranges with the confirmation rule: the deciding test</a></td></tr><tr><td><b>Trend pullbacks</b><br><span class='small'>Pullbacks into zones and to the 50 EMA inside trends.</span></td><td><span class="chip bad">Failed</span></td><td class='small'><a href="tests/trend-zones.html">Trend pullback zones</a>, <a href="tests/rayner.html">Rayner Teo&#x27;s 50 EMA pullback template, 1-hour</a></td></tr><tr><td><b>Trend structure</b><br><span class='small'>Your own trend definition: higher highs and higher lows, then continuation and whole trades.</span></td><td><span class="chip bad">Failed</span> <span class="chip none">Too few</span></td><td class='small'><a href="tests/structure-v1.html">Trend structure with retests</a>, <a href="tests/structure-v2.html">Trend structure without retests</a>, <a href="tests/structure-v3.html">Trend continuation, structure v3</a>, <a href="tests/structure-trade.html">Trend structure trades at 1.5R</a>, <a href="tests/pullback-entry.html">Pullback to support with a rejection candle</a></td></tr></tbody></table></div>
 <h2>Latest tests</h2>
-<div class="scroll"><table><thead><tr><th>Test</th><th>Result</th><th>Conclusion</th></tr></thead><tbody><tr><td><a href="tests.html#pullback-entry">Pullback to support with a rejection candle, 1.5R</a></td><td><span class="chip bad"><i aria-hidden="true">&#10005;</i>Failed</span></td><td>Worse than entering at confirmation and worse than random entries. The broken high didn&#x27;t hold as support more often than chance.</td></tr><tr><td><a href="tests.html#structure-trade">Trend structure trades at 1.5R, $10,000 play account</a></td><td><span class="chip bad"><i aria-hidden="true">&#10005;</i>Failed</span></td><td>Lost money and did no better than random entries. Too few trades to rule out a small edge, but even that would earn little.</td></tr><tr><td><a href="tests.html#structure-v3">Trend continuation, structure v3</a></td><td><span class="chip bad"><i aria-hidden="true">&#10005;</i>Failed</span></td><td>No continuation edge over a random walk, and too few structures.</td></tr><tr><td><a href="tests.html#structure-v2">Trend structure without retests</a></td><td><span class="chip none"><i aria-hidden="true">&#9675;</i>Too few</span></td><td>Matches the eye, but too rare. Loosened to v3 from counts only.</td></tr></tbody></table></div>
-<h2>How every idea is judged</h2>
-<div class="card">
-<ul>
-<li><b>Rules first:</b> each test's rules and pass thresholds are pushed to the repo before any result is seen.</li>
-<li><b>Against chance:</b> zone tests compare with random levels, trade tests with random entries, and continuation with a random-walk rate.</li>
-<li><b>After costs:</b> trades fill at real bid and ask prices, with an assumed commission.</li>
-<li><b>Enough evidence:</b> zone and continuation tests need at least 300 to 1,100 events, and trade tests at least 300 trades, with a 95% range that excludes zero.</li>
-<li><b>One holdout:</b> November 2023 onward is untouched, for a single final check of anything that passes.</li>
-</ul>
-</div>
-</main><footer>Updated 2026-11-04 13:31. Built by code/site/build.py. No market prices are published here.</footer></body></html>
+<div class="scroll"><table><thead><tr><th>Test</th><th>Result</th><th>Headline</th></tr></thead><tbody><tr><td><a href="tests/pullback-entry.html">Pullback to support with a rejection candle</a></td><td><span class="chip bad">Failed</span></td><td>72 trades, -0.224R a trade. $10,000 became $8,389.</td></tr><tr><td><a href="tests/structure-trade.html">Trend structure trades at 1.5R</a></td><td><span class="chip bad">Failed</span></td><td>125 trades, -0.077R a trade. $10,000 became $9,037.</td></tr><tr><td><a href="tests/structure-v3.html">Trend continuation, structure v3</a></td><td><span class="chip bad">Failed</span></td><td>No continuation edge.</td></tr><tr><td><a href="tests/structure-v2.html">Trend structure without retests</a></td><td><span class="chip none">Too few</span></td><td>Too rare to test.</td></tr><tr><td><a href="tests/structure-v1.html">Trend structure with retests</a></td><td><span class="chip none">Too few</span></td><td>Too rare to test.</td></tr></tbody></table></div>
+<h2>The short version</h2>
+<div class="card"><p style="margin:0">Every version tested so far, from support and resistance zones to your own trend structure, has behaved like a random market plus costs.
+Making setups look cleaner to the eye improved how well the rules match your judgement, but not the results. The holdout data is untouched,
+so any future idea that passes still gets a clean final check.</p></div>
+</div></main><footer><div class="wrap">Updated 2026-11-05 08:33. Charts are pictures drawn from HistData prices, for research illustration only. No price data is published here.</div></footer></body></html>
